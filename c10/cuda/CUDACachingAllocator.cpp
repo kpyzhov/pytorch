@@ -505,7 +505,7 @@ struct THCCachingAllocator
   void free_blocks(BlockPool& blocks, BlockPool::iterator it, BlockPool::iterator end)
   {
     // Frees all non-split blocks between `it` and `end`
-    std::lock_guard<std::mutex> lock(cuda_free_mutex);
+    //std::lock_guard<std::mutex> lock(cuda_free_mutex);
     while (it != end) {
       Block* block = *it;
       if (!block->prev && !block->next) {

@@ -411,8 +411,7 @@ void DataChannelNccl::allReduce(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
-      *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
+  //std::unique_lock<std::mutex> cudaFreeMutexLock(*(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
   for (size_t i = 0; i < data.size(); ++i) {
@@ -438,7 +437,7 @@ void DataChannelNccl::allReduce(
     THCudaCheck(cudaEventRecord((*events)[i], stream));
   }
 
-  cudaFreeMutexLock.unlock();
+  //cudaFreeMutexLock.unlock();
 }
 
 void DataChannelNccl::allReduce(
@@ -467,8 +466,7 @@ void DataChannelNccl::allGather(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
-      *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
+  //std::unique_lock<std::mutex> cudaFreeMutexLock(*(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
   for (size_t i = 0; i < input.size(); ++i) {
@@ -493,7 +491,7 @@ void DataChannelNccl::allGather(
     THCudaCheck(cudaEventRecord((*events)[i], stream));
   }
 
-  cudaFreeMutexLock.unlock();
+  //cudaFreeMutexLock.unlock();
 }
 
 void DataChannelNccl::allGather(
@@ -524,8 +522,7 @@ void DataChannelNccl::reduce(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
-      *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
+  //std::unique_lock<std::mutex> cudaFreeMutexLock(*(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
   for (size_t i = 0; i < data.size(); ++i) {
@@ -552,7 +549,7 @@ void DataChannelNccl::reduce(
     THCudaCheck(cudaEventRecord((*events)[i], stream));
   }
 
-  cudaFreeMutexLock.unlock();
+  //cudaFreeMutexLock.unlock();
 }
 
 void DataChannelNccl::reduce(
@@ -583,8 +580,7 @@ void DataChannelNccl::broadcast(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
-      *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
+  //std::unique_lock<std::mutex> cudaFreeMutexLock(*(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
   for (size_t i = 0; i < data.size(); ++i) {
@@ -609,7 +605,7 @@ void DataChannelNccl::broadcast(
     THCudaCheck(cudaEventRecord((*events)[i], stream));
   }
 
-  cudaFreeMutexLock.unlock();
+  //cudaFreeMutexLock.unlock();
 }
 
 void DataChannelNccl::broadcast(
