@@ -411,7 +411,7 @@ void DataChannelNccl::allReduce(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
+  std::unique_lock<std::recursive_mutex> cudaFreeMutexLock(
       *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
@@ -467,7 +467,7 @@ void DataChannelNccl::allGather(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
+  std::unique_lock<std::recursive_mutex> cudaFreeMutexLock(
       *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
@@ -524,7 +524,7 @@ void DataChannelNccl::reduce(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
+  std::unique_lock<std::recursive_mutex> cudaFreeMutexLock(
       *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());
@@ -583,7 +583,7 @@ void DataChannelNccl::broadcast(
   // Guard GPU device
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
+  std::unique_lock<std::recursive_mutex> cudaFreeMutexLock(
       *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   NCCL_CHECK(ncclGroupStart());

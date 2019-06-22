@@ -54,7 +54,7 @@ C10_CUDA_API uint64_t currentMemoryCached(int device);
 C10_CUDA_API uint64_t maxMemoryCached(int device);
 C10_CUDA_API void     resetMaxMemoryCached(int device);
 
-C10_CUDA_API std::mutex* getFreeMutex();
+C10_CUDA_API std::recursive_mutex* getFreeMutex();
 
 C10_CUDA_API std::shared_ptr<void> getIpcDevPtr(std::string handle);
 

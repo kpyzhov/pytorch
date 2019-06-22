@@ -162,7 +162,7 @@ struct THCCachingAllocator
   std::recursive_mutex mutex;
 
   // lock around calls to cudaFree (to prevent deadlocks with NCCL)
-  std::mutex cuda_free_mutex;
+  //std::mutex cuda_free_mutex;
 
   // cached blocks larger than 1 MB
   BlockPool large_blocks;
@@ -505,7 +505,8 @@ struct THCCachingAllocator
   void free_blocks(BlockPool& blocks, BlockPool::iterator it, BlockPool::iterator end)
   {
     // Frees all non-split blocks between `it` and `end`
-    std::lock_guard<std::mutex> lock(cuda_free_mutex);
+    //std::lock_guard<std::mutex> lock(cuda_free_mutex);
+    std::lock_guard<std::recursive_mutex> lock(mutex);
     while (it != end) {
       Block* block = *it;
       if (!block->prev && !block->next) {
@@ -657,9 +658,10 @@ void recordStream(void *ptr, cuda::CUDAStream stream)
   caching_allocator.recordStream(ptr, stream);
 }
 
-std::mutex* getFreeMutex()
+std::recursive_mutex* getFreeMutex()
 {
-  return &caching_allocator.cuda_free_mutex;
+  //return &caching_allocator.cuda_free_mutex;
+  return &caching_allocator.mutex;
 }
 
 static inline void assertValidDevice(int device) {

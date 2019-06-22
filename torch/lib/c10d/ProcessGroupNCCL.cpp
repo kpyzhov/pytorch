@@ -394,7 +394,7 @@ std::shared_ptr<ProcessGroup::Work> ProcessGroupNCCL::collective(
 
   at::cuda::OptionalCUDAGuard gpuGuard;
 
-  std::unique_lock<std::mutex> cudaFreeMutexLock(
+  std::unique_lock<std::recursive_mutex> cudaFreeMutexLock(
       *(c10::cuda::CUDACachingAllocator::getFreeMutex()));
 
   pre(ncclStreams_[key]);
