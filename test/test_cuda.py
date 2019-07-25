@@ -2046,7 +2046,7 @@ class TestCuda(TestCase):
             torch.cuda.current_stream().wait_stream(stream)
             tmp.record_stream(torch.cuda.current_stream())
             torch.cuda._sleep(int(50 * cycles_per_ms))  # delay the copy
-            result.copy_(tmp)
+            result.copy_(tmp, non_blocking=True)
 
         perform_copy()
         with torch.cuda.stream(stream):
